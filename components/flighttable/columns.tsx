@@ -26,6 +26,7 @@ export const columns: ColumnDef<FlightSummary>[] = [
     },
   },
   {
+    id: 'airline',
     accessorKey: 'airline',
     header: ({ column }) => {
       return (

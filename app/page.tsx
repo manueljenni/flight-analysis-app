@@ -10,6 +10,7 @@ import { FlightSummary } from './types';
 
 export default function Home() {
   const [flights, setFlights] = React.useState<FlightSummary[]>([]);
+  const [error, setError] = React.useState('');
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -19,6 +20,7 @@ export default function Home() {
     };
 
     if (target.origin.value === '' || target.destination.value === '') {
+      setError('Please fill in origin and destination');
       return;
     }
 
@@ -27,9 +29,17 @@ export default function Home() {
       target.destination.value,
     );
 
-    if (flightsResponse.status === 200) {
+    if (flightsResponse.ok) {
       const data = await flightsResponse.json();
       setFlights(data);
+      setError('');
+    } else {
+      if (flightsResponse.status === 404) {
+        setError('No flights found');
+      } else {
+        setError('An error occurred - try again.');
+      }
+      setFlights([]);
     }
   }
 
@@ -51,6 +61,11 @@ export default function Home() {
             </div>
             <Button type='submit'>Search</Button>
           </form>
+          {error && (
+            <p className='rounded-full border border-red-400 bg-red-200 px-4 py-1 text-sm text-red-600'>
+              {error}
+            </p>
+          )}
           <div className='w-full'>
             <div className='space-y-2'>
               {flights.length > 0 && (

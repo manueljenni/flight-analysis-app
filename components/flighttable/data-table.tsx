@@ -30,7 +30,12 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = useState<SortingState>([]);
+  const [sorting, setSorting] = useState<SortingState>([
+    {
+      id: 'price',
+      desc: false,
+    },
+  ]);
 
   const table = useReactTable({
     data,
@@ -38,6 +43,12 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     initialState: {
+      sorting: [
+        {
+          id: 'airline',
+          desc: true,
+        },
+      ],
       pagination: {
         pageSize: 50,
       },

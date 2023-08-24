@@ -36,7 +36,7 @@ export default function Home() {
   return (
     <div className='h-screen px-12'>
       <div className='center-div mt-12'>
-        <div className='flex w-full flex-col items-center space-y-12'>
+        <div className='flex w-full max-w-4xl flex-col items-center space-y-12'>
           <form
             className='flex w-full items-end justify-center gap-4'
             onSubmit={submit}

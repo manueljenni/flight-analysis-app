@@ -7,6 +7,8 @@ export const BASE_URL =
   'https://google-flights-scraper-321c3fd96424.herokuapp.com';
 
 export function useFlightsByRoute(origin?: string, destination?: string) {
+  origin == '' ? (origin = undefined) : origin;
+  destination == '' ? (destination = undefined) : destination;
   if (!origin && destination !== undefined)
     return fetchUrl<FlightSummary[]>(`/flights?destination=${destination}`);
   else if (origin !== undefined && !destination)

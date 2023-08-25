@@ -28,6 +28,9 @@ export function AirportSelect(props: {
           <SelectValue placeholder={props.placeholder} />
         </SelectTrigger>
         <SelectContent>
+          <SelectItem value='' className='font-bold'>
+            All
+          </SelectItem>
           <SelectGroup>
             {props.selectOptions.map((option) => (
               <SelectItem key={option} value={option}>

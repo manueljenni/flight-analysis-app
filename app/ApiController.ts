@@ -3,7 +3,7 @@
 import { fetchUrl } from './swr';
 import { FlightSummary, Route } from './types';
 
-export const BASE_URL = 'http://127.0.0.1:8000';
+export const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export function useFlightsByRoute(origin?: string, destination?: string) {
   if (!origin && destination !== undefined)

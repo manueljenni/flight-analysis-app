@@ -29,7 +29,7 @@ export default function Home() {
       <div className='center-div mt-12'>
         <div className='flex w-full max-w-4xl flex-col items-center space-y-12'>
           <form
-            className='flex w-full items-end justify-center gap-4'
+            className='flex w-full flex-col items-end justify-center gap-4 md:flex-row'
             onSubmit={submit}
           >
             <AirportSelect
@@ -64,7 +64,9 @@ export default function Home() {
               placeholder='Enter an arrival...'
               onChange={(value: string) => setDestination(value)}
             />
-            <Button type='submit'>Search</Button>
+            <Button type='submit' className='mt-4 w-full md:mt-0 md:w-min'>
+              Search
+            </Button>
           </form>
           <div className='w-full'>
             {allFlights.ok && (

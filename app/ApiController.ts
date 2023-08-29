@@ -3,8 +3,7 @@
 import { fetchUrl } from './swr';
 import { FlightSummary, Route } from './types';
 
-export const BASE_URL =
-  'https://google-flights-scraper-321c3fd96424.herokuapp.com';
+export const BASE_URL = 'http://206.81.31.106';
 
 export function useFlightsByRoute(origin?: string, destination?: string) {
   origin == '' ? (origin = undefined) : origin;

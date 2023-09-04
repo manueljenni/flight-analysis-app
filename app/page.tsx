@@ -10,9 +10,11 @@ import { Route } from './types';
 export default function Home() {
   const [origin, setOrigin] = useState<string>();
   const [destination, setDestination] = useState<string>();
+  const [page, setPage] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(100);
 
   const allRoutes = useAllRoutes();
-  const allFlights = useFlightsByRoute(origin, destination);
+  const allFlights = useFlightsByRoute(origin, destination, page, pageSize);
 
   function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -70,7 +72,12 @@ export default function Home() {
           </form>
           <div className='w-full'>
             {allFlights.ok && (
-              <DataTable columns={columns} data={allFlights.value} />
+              <DataTable
+                columns={columns}
+                data={allFlights.value}
+                setPage={setPage}
+                currentPage={page}
+              />
             )}
             {!allFlights.ok && !allFlights.loading && (
               <div className='text-red-500'>{allFlights.error.message}</div>

@@ -27,11 +27,15 @@ import { Input } from '../ui/input';
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  setPage: (newPage: number) => void;
+  currentPage: number;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  setPage,
+  currentPage,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([
     {
@@ -54,7 +58,7 @@ export function DataTable<TData, TValue>({
         },
       ],
       pagination: {
-        pageSize: 25,
+        pageSize: 50,
       },
     },
     onSortingChange: setSorting,
@@ -127,10 +131,14 @@ export function DataTable<TData, TValue>({
         </TableBody>
       </Table>
       <div className='flex items-center justify-end space-x-2 px-4 py-4'>
+        <p>Total: {data.length}</p>
         <Button
           variant='outline'
           size='sm'
-          onClick={() => table.previousPage()}
+          onClick={() => {
+            table.previousPage();
+            setPage(currentPage - 1);
+          }}
           disabled={!table.getCanPreviousPage()}
         >
           Previous
@@ -138,7 +146,10 @@ export function DataTable<TData, TValue>({
         <Button
           variant='outline'
           size='sm'
-          onClick={() => table.nextPage()}
+          onClick={() => {
+            table.nextPage();
+            setPage(currentPage + 1);
+          }}
           disabled={!table.getCanNextPage()}
         >
           Next

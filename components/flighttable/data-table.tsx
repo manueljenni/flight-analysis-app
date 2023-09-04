@@ -22,7 +22,6 @@ import {
 } from '@/components/ui/table';
 import { useState } from 'react';
 import { Button } from '../ui/button';
-import { Input } from '../ui/input';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -58,7 +57,7 @@ export function DataTable<TData, TValue>({
         },
       ],
       pagination: {
-        pageSize: 50,
+        pageSize: 15,
       },
     },
     onSortingChange: setSorting,
@@ -73,20 +72,6 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className='rounded-md border'>
-      <div className='grid grid-cols-1 gap-4 px-4'>
-        <div className='flex items-center py-4'>
-          <Input
-            placeholder='Filter airlines...'
-            value={
-              (table.getColumn('airline')?.getFilterValue() as string) ?? ''
-            }
-            onChange={(event) =>
-              table.getColumn('airline')?.setFilterValue(event.target.value)
-            }
-            className='max-w-sm'
-          />
-        </div>
-      </div>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (

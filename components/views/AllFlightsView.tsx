@@ -56,7 +56,9 @@ export default function AllFlightsView() {
   return (
     <div className='space-y-8'>
       <form className='w-full' onSubmit={submit}>
-        <h1 className='mb-6 text-left text-2xl'>All Flights</h1>
+        <h1 className='mb-6 text-left text-2xl font-medium'>
+          Cheapest Business Flights
+        </h1>
         <div className='grid grid-cols-1 items-end gap-x-12 gap-y-8 md:grid-cols-2 lg:grid-cols-3'>
           <AirportSelect
             title={'Origin'}

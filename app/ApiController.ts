@@ -1,5 +1,6 @@
 'use client';
 
+import { DateRange } from 'react-day-picker';
 import { fetchUrl } from './swr';
 import { FlightSummary, Route } from './types';
 
@@ -9,6 +10,8 @@ export function useFlightsByRoute(
   origin?: string,
   destination?: string,
   airline?: string,
+  departureDates?: DateRange,
+  returnDates?: DateRange,
   page?: number,
   pageSize?: number,
 ) {
@@ -26,6 +29,30 @@ export function useFlightsByRoute(
 
   if (airline) query += `&airline=${airline}`;
 
+  if (departureDates) {
+    if (departureDates.from) {
+      query += `&departureDateStart=${departureDates.from
+        .toISOString()
+        .substr(0, 10)}`;
+    }
+    if (departureDates.to) {
+      query += `&departureDateEnd=${departureDates.to
+        .toISOString()
+        .substr(0, 10)}`;
+    }
+  }
+
+  if (returnDates) {
+    if (returnDates.from) {
+      query += `&returnDateStart=${returnDates.from
+        .toISOString()
+        .substr(0, 10)}`;
+    }
+    if (returnDates.to) {
+      query += `&returnDateEnd=${returnDates.to.toISOString().substr(0, 10)}`;
+    }
+  }
+
   return fetchUrl<FlightSummary[]>(query);
 }
 
@@ -41,7 +68,10 @@ export function useRoutesByDestination(destination: string) {
   return fetchUrl<Route[]>(`/routes?destination=${destination}`);
 }
 
-export function useCheapestRoutes() {
+export function useCheapestRoutes(airline?: string) {
+  var url = `/flights/cheapest`;
+  if (airline) url += `?airline=${airline}`;
+
   return fetchUrl<
     {
       origin: string;
@@ -49,5 +79,5 @@ export function useCheapestRoutes() {
       price: number;
       airline: string;
     }[]
-  >(`/flights/cheapest`);
+  >(url);
 }

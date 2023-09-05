@@ -123,7 +123,7 @@ export function DataTable<TData, TValue>({
             table.previousPage();
             setPage(currentPage - 1);
           }}
-          disabled={currentPage === 0}
+          disabled={!table.getCanPreviousPage()}
         >
           Previous
         </Button>

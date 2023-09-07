@@ -68,9 +68,41 @@ export function useRoutesByDestination(destination: string) {
   return fetchUrl<Route[]>(`/routes?destination=${destination}`);
 }
 
-export function useCheapestRoutes(airline?: string) {
-  var url = `/flights/cheapest`;
-  if (airline) url += `?airline=${airline}`;
+export function useCheapestRoutes(
+  airline?: string,
+  departureDates?: DateRange,
+  returnDates?: DateRange,
+) {
+  const params = new URLSearchParams();
+
+  if (airline) {
+    params.append('airline', airline);
+  }
+
+  if (departureDates?.from) {
+    params.append(
+      'departureDateStart',
+      departureDates.from.toISOString().substr(0, 10),
+    );
+  }
+  if (departureDates?.to) {
+    params.append(
+      'departureDateEnd',
+      departureDates.to.toISOString().substr(0, 10),
+    );
+  }
+
+  if (returnDates?.from) {
+    params.append(
+      'returnDateStart',
+      returnDates.from.toISOString().substr(0, 10),
+    );
+  }
+  if (returnDates?.to) {
+    params.append('returnDateEnd', returnDates.to.toISOString().substr(0, 10));
+  }
+
+  const url = `/flights/cheapest?${params.toString()}`;
 
   return fetchUrl<
     {

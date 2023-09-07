@@ -43,22 +43,20 @@ export default function AllFlightsView() {
     }
   }, [allFlights]);
 
-  function submit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const target = e.target as typeof e.target & {
-      origin: { value: string };
-      destination: { value: string };
-    };
-    setOrigin(target.origin.value);
-    setDestination(target.destination.value);
+  function submit() {
+    setPage(0);
   }
 
   return (
     <div className='space-y-8'>
-      <form className='w-full' onSubmit={submit}>
-        <h1 className='mb-6 text-left text-2xl font-medium'>
-          Cheapest Business Flights
-        </h1>
+      <div className='space-y-2'>
+        <h1 className='text-left text-2xl font-medium'>All flights</h1>
+        <p className='text-sm text-muted-foreground'>
+          Search for airports, countries or regions and filter by dates and
+          airline. Example: "Europe" to "Asia".
+        </p>
+      </div>
+      <div className='w-full'>
         <div className='grid grid-cols-1 items-end gap-x-12 gap-y-8 md:grid-cols-2 lg:grid-cols-3'>
           <AirportSelect
             title={'Origin'}
@@ -101,24 +99,22 @@ export default function AllFlightsView() {
             />
           </div>
           <div className='flex w-full flex-col space-y-4'>
-            <Label>Departure date</Label>
+            <Label>Departure dates</Label>
             <DatePickerWithRange
               dates={departureDates}
               setDates={setDepartureDates}
             />
           </div>
           <div className='flex w-full flex-col space-y-4'>
-            <Label>Return date</Label>
+            <Label>Return dates</Label>
             <DatePickerWithRange
               dates={returnDates}
               setDates={setReturnDates}
             />
           </div>
-          <Button type='submit' className='w-full'>
-            Submit
-          </Button>
+          <Button onClick={submit}>Submit</Button>
         </div>
-      </form>
+      </div>
       <div className='w-full'>
         {allFlights.ok && (
           <DataTable

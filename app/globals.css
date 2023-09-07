@@ -33,6 +33,9 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+
+    --main: 193 49% 68%;
+    --main-dark: 193 36% 46%;
   }
 
   .dark {
@@ -77,4 +80,15 @@
 
 .center-div {
   @apply flex items-center justify-center;
+}
+
+.gradient-text {
+  background-image: linear-gradient(
+    110deg,
+    hsl(var(--main-dark)) 0%,
+    hsl(var(--main)) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

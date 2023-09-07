@@ -71,7 +71,7 @@ export default function AllFlightsView() {
                 : []
             }
             name='origin'
-            placeholder='Select a departure...'
+            placeholder='Select departure...'
             onChange={(value: string) => setOrigin(value)}
           />
           <AirportSelect
@@ -87,7 +87,7 @@ export default function AllFlightsView() {
                 : []
             }
             name='destination'
-            placeholder='Select an arrival...'
+            placeholder='Select arrival...'
             onChange={(value: string) => setDestination(value)}
           />
           <div className='flex w-full flex-col space-y-4'>

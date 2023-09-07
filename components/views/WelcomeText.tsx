@@ -8,8 +8,10 @@ export function WelcomeText() {
           with <span className='gradient-text'>flexible schedules</span>.
         </h2>
         <p>
-          Want to fly Business for less? Be flexible with your <b>route</b> and{' '}
-          <b>dates</b> and you might find a great deal!
+          Want to fly Business for less? Use this to find routes from alternate
+          airports and on different routes. Then you just need to take a flight
+          to a different airport before your flight, which can lead to huge cost
+          savings on the longer flight!
         </p>
       </div>
       <p className='text-main text-sm font-medium underline underline-offset-4'>

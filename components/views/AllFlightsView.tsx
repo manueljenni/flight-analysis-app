@@ -51,10 +51,6 @@ export default function AllFlightsView() {
     <div className='space-y-8'>
       <div className='space-y-2'>
         <h1 className='text-left text-2xl font-medium'>All flights</h1>
-        <p className='text-sm text-muted-foreground'>
-          Search for airports, countries or regions and filter by dates and
-          airline. Example: "Europe" to "Asia".
-        </p>
       </div>
       <div className='w-full'>
         <div className='grid grid-cols-1 items-end gap-x-12 gap-y-8 md:grid-cols-2 lg:grid-cols-3'>

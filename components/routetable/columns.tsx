@@ -1,7 +1,9 @@
 'use client';
 
+import { formatCurrency } from '@/lib/utils';
 import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
+import { PricingPopover } from '../PricingPopover';
 import { Button } from '../ui/button';
 
 export const columns: ColumnDef<{
@@ -9,6 +11,7 @@ export const columns: ColumnDef<{
   destination: string;
   price: number;
   airline: string;
+  averagePrice: number;
 }>[] = [
   {
     id: 'origin',
@@ -75,11 +78,20 @@ export const columns: ColumnDef<{
       );
     },
     cell: ({ row }) => {
-      const priceInSwissFrancs = new Intl.NumberFormat('de-CH', {
-        style: 'currency',
-        currency: 'CHF',
-      }).format(row.getValue('price'));
-      return <p>{priceInSwissFrancs}</p>;
+      const originalRow = row.original;
+      const price = originalRow.price;
+      const averagePrice = originalRow.averagePrice;
+      return (
+        <div className='flex items-center justify-center space-x-2'>
+          <p>{formatCurrency(price)}</p>
+          <PricingPopover
+            percentageDifference={(price - averagePrice) / averagePrice}
+            priceDifference={price - averagePrice}
+            currentPrice={price}
+            averagePrice={averagePrice}
+          />
+        </div>
+      );
     },
   },
 ];

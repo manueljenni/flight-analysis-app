@@ -5,6 +5,7 @@ export type FlightSummary = {
   price: number;
   departure_datetime: string;
   return_datetime: string;
+  averagePrice: number;
 };
 
 export type Route = {

@@ -110,6 +110,7 @@ export function useCheapestRoutes(
       destination: string;
       price: number;
       airline: string;
+      averagePrice: number;
     }[]
   >(url);
 }

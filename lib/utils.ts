@@ -20,9 +20,10 @@ export function formatPercentage(number: number) {
 }
 
 export function formatCurrency(number: number) {
-  return Math.abs(number).toLocaleString('de-CH', {
+  const formatted = Math.abs(number).toLocaleString('de-CH', {
     style: 'currency',
     currency: 'CHF',
     maximumFractionDigits: 0,
   });
+  return number < 0 ? '-' + formatted : formatted;
 }

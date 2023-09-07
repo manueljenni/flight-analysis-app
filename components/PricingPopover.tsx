@@ -61,6 +61,7 @@ export function PricingPopover(props: {
             <p className='text-center'>{formatCurrency(props.averagePrice)}</p>
             <b>Difference</b>
             <b className={`text-${color}-600 text-center`}>
+              {props.priceDifference > 0 ? '+' : ''}
               {formatCurrency(props.priceDifference)}
             </b>
           </div>

@@ -16,20 +16,22 @@ export default function AllFlightsView() {
   const [origin, setOrigin] = useState<string>();
   const [destination, setDestination] = useState<string>();
   const [airline, setAirline] = useState<string>();
-  const [page, setPage] = useState<number>(0);
-  const [pageSize, setPageSize] = useState<number>(100);
   const [departureDates, setDepartureDates] = useState<DateRange | undefined>(
     undefined,
   );
   const [returnDates, setReturnDates] = useState<DateRange | undefined>(
     undefined,
   );
+  const [ignoredAirlines, setIgnoredAirlines] = useState<string>();
+  const [page, setPage] = useState<number>(0);
+  const pageSize = 100;
 
   const allRoutes = useAllRoutes();
   const allFlights = useFlightsByRoute(
     origin,
     destination,
     airline,
+    ignoredAirlines,
     departureDates,
     returnDates,
     page,
@@ -59,11 +61,11 @@ export default function AllFlightsView() {
             selectOptions={
               allRoutes.ok
                 ? allRoutes.value
-                    .map((route: Route) => route.origin)
-                    .filter(
-                      (value: string, index: number, self: string[]) =>
-                        self.indexOf(value) === index,
-                    )
+                  .map((route: Route) => route.origin)
+                  .filter(
+                    (value: string, index: number, self: string[]) =>
+                      self.indexOf(value) === index,
+                  )
                 : []
             }
             name='origin'
@@ -75,11 +77,11 @@ export default function AllFlightsView() {
             selectOptions={
               allRoutes.ok
                 ? allRoutes.value
-                    .map((route: Route) => route.destination)
-                    .filter(
-                      (value: string, index: number, self: string[]) =>
-                        self.indexOf(value) === index,
-                    )
+                  .map((route: Route) => route.destination)
+                  .filter(
+                    (value: string, index: number, self: string[]) =>
+                      self.indexOf(value) === index,
+                  )
                 : []
             }
             name='destination'
@@ -108,7 +110,14 @@ export default function AllFlightsView() {
               setDates={setReturnDates}
             />
           </div>
-          <Button onClick={submit}>Submit</Button>
+          <div className='flex w-full flex-col space-y-4'>
+            <Label>Ignored airline</Label>
+            <Input
+              placeholder='Ignore these airlines...'
+              value={ignoredAirlines}
+              onChange={(e) => setIgnoredAirlines(e.target.value)}
+            />
+          </div>
         </div>
       </div>
       <div className='w-full'>

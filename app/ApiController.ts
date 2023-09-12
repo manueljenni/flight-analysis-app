@@ -10,6 +10,7 @@ export function useFlightsByRoute(
   origin?: string,
   destination?: string,
   airline?: string,
+  ignoredAirline?: string,
   departureDates?: DateRange,
   returnDates?: DateRange,
   page?: number,
@@ -28,6 +29,8 @@ export function useFlightsByRoute(
   else query += `/flights?page=${page}&pageSize=${pageSize}`;
 
   if (airline) query += `&airline=${airline}`;
+
+  if (ignoredAirline) query += `&ignoredAirline=${ignoredAirline}`;
 
   if (departureDates) {
     if (departureDates.from) {
